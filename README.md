@@ -1,4 +1,4 @@
-# scRNA-seq Analysis of Human Bone Marrow and CD34+ Enriched Cells
+# 🧬 scRNA-seq Analysis of Human Bone Marrow and CD34+ Enriched Cells
 ![R Package](https://img.shields.io/badge/R%20Package-Seurat-blue)
 ![R Package](https://img.shields.io/badge/R%20Package-CellChat-green)
 ![R Package](https://img.shields.io/badge/R%20Package-Monocle3-red)
@@ -11,7 +11,7 @@ The analysis follows a complete standard single-cell workflow, implemented prima
 
 ---
 
-## Table of Contents
+## 🧪  Table of Contents
 
 - [Dataset Overview](#dataset-overview)
 - [Quality Control](#quality-control)
@@ -23,7 +23,7 @@ The analysis follows a complete standard single-cell workflow, implemented prima
 
 ---
 
-## Dataset Overview
+## 📦 Dataset Overview
 
 The dataset consists of four samples from two cell populations across multiple donors:
 
@@ -37,15 +37,13 @@ The dataset consists of four samples from two cell populations across multiple d
 - **BMMC**: Bone Marrow Mononuclear Cells (mature immune cells)
 - **CD34+**: Hematopoietic stem and progenitor cells enriched for CD34 surface marker
 
-## 📦 Dataset Download
-
 The dataset used in this project can be downloaded here:
 
 - [Download scRNA-seq bone marrow dataset (ZIP)](https://icbb-share.s3.eu-central-1.amazonaws.com/single-cell-bioinformatics/scbi_ds1.zip)
   
 ---
 
-## Quality Control
+## 🔬 Quality Control
 
 Violin plots (VlnPlot) were generated for each sample to assess three key QC metrics:
 
@@ -60,7 +58,7 @@ Key observations:
 
 ---
 
-## Batch Correction
+## ⚖️ Batch Correction
 
 UMAP plots were generated before and after batch correction, colored by several metadata variables to identify sources of technical variation:
 
@@ -75,7 +73,7 @@ Batch correction was successful in removing technical donor/replicate effects wh
 
 ---
 
-## Dimensionality Reduction
+## 📉 Dimensionality Reduction
 
 ### PCA
 
@@ -90,7 +88,7 @@ UMAP was run on the top 10 PCs, revealing **15 distinct clusters** (0–14) with
 
 ---
 
-## Clustering
+## 🧩 Clustering
 
 Seurat graph-based clustering identified **15 clusters** (0–14) at the chosen resolution. Side-by-side UMAP plots colored by `orig.ident` and `seurat_clusters` confirm that:
 - CD34+ progenitor cells predominantly occupy the upper clusters (enriched in stem/progenitor identities)
@@ -118,7 +116,7 @@ Both approaches yielded broadly similar cluster distributions. The key differenc
 
 ---
 
-## Differential Expression Analysis
+## 📊 Differential Expression Analysis
 
 Marker gene expression was visualized using violin plots and UMAP feature plots for three canonical lineage markers:
 
