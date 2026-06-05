@@ -1,84 +1,142 @@
-# Single-Cell-RNA-seq-Analysis-of-Human-Bone-Marrow-Cells-and-CD34-Enriched-Cells
+# scRNA-seq Analysis of Human Bone Marrow
 
-![R Package](https://img.shields.io/badge/R_Package-Seurat-blue)
-![R Package](https://img.shields.io/badge/R_Package-CellChat-green)
-![R Package](https://img.shields.io/badge/R_Package-Monocle3-red)
-
-Single-cell RNA sequencing (scRNA-seq) has become a powerful tool for studying cellular heterogeneity and identifying distinct cell populations within complex biological systems. This project presents a comprehensive scRNA-seq analysis of human bone marrow mononuclear cells (BMMCs) and CD34+ hematopoietic progenitor cells obtained from multiple donors and biological replicates.
-
-The primary objective of this study is to characterize the cellular composition of hematopoietic populations by applying a standard single-cell analysis workflow, including quality control, normalization, dimensionality reduction, clustering, cell-type annotation, and differential gene expression analysis. To ensure data quality and reliability, doublets were identified and removed using DoubletFinder, while batch effects arising from donor and replicate differences were corrected through Seurat's integration framework.
-
-Both automated annotation using SingleR and manual annotation based on known marker genes were performed to identify major immune and progenitor cell populations. Additionally, differential expression analyses were conducted to investigate transcriptional differences between selected cell types, providing insights into lineage-specific gene expression patterns.
-
-This project demonstrates an end-to-end scRNA-seq analysis pipeline using the Seurat ecosystem in R and serves as a practical example of single-cell bioinformatics workflows for studying hematopoietic cell diversity and gene expression dynamics.
-
-
-## Dataset
-
-### Source
-
-Dataset download link:
-
-https://icbb-share.s3.eu-central-1.amazonaws.com/single-cell-bioinformatics/scbi_ds1.zip
-
-### Samples
-
-| Sample | Description |
-|----------|----------|
-| BMMC-D1T1 | Bone Marrow Mononuclear Cells - Donor 1 Replicate 1 |
-| BMMC-D1T2 | Bone Marrow Mononuclear Cells - Donor 1 Replicate 2 |
-| CD34-D2T1 | CD34+ Cells - Donor 2 Replicate 1 |
-| CD34-D3T1 | CD34+ Cells - Donor 3 Replicate 1 |
-
-### Dataset Statistics
-
-| Sample | Cells | Genes |
-|----------|-------|-------|
-| BMMC-D1T1 | 6270 | 14065 |
-| BMMC-D1T2 | 6332 | 14084 |
-| CD34-D2T1 | 2424 | 13441 |
-| CD34-D3T1 | 5752 | 13432 |
+A single-cell RNA sequencing analysis pipeline applied to human bone marrow mononuclear cells (BMMC) and CD34+ progenitor cells, covering quality control, batch correction, dimensionality reduction, clustering, cell type annotation, and differential expression analysis.
 
 ---
 
-## Installation
+## Table of Contents
 
-### Clone Repository
-
-```bash
-git clone https://github.com/akramayman/Single-Cell-RNA-seq-Analysis-of-Human-Bone-Marrow-Cells-and-CD34-Enriched-Cells.git
-cd Single-Cell-RNA-seq-Analysis-of-Human-Bone-Marrow-Cells-and-CD34-Enriched-Cells
-```
-### Create Environment
-
-```bash
-conda env create -f environment.yaml
-conda activate scrnaseq
-```
+- [Dataset Overview](#dataset-overview)
+- [Quality Control](#quality-control)
+- [Batch Correction](#batch-correction)
+- [Dimensionality Reduction](#dimensionality-reduction)
+- [Clustering](#clustering)
+- [Cell Type Annotation](#cell-type-annotation)
+- [Differential Expression Analysis](#differential-expression-analysis)
 
 ---
 
-## Analysis Workflow
+## Dataset Overview
 
+The dataset consists of four samples from two cell populations across multiple donors:
 
-- Quality control (QC)
-- Normalization and preprocessing
-- Doublet detection using DoubletFinder
-- Batch correction and data integration
-- Dimensionality reduction (PCA & UMAP)
-- Clustering
-- Automated and manual cell-type annotation
-- Differential gene expression analysis
+| Sample      | Cell Type | Number of Cells | Number of Genes |
+|-------------|-----------|-----------------|-----------------|
+| BMMC-D1T1   | BMMC      | 6,270           | 14,065          |
+| BMMC-D1T2   | BMMC      | 6,332           | 14,084          |
+| CD34-D2T1   | CD34+     | 2,424           | 13,441          |
+| CD34-D3T1   | CD34+     | 5,752           | 13,432          |
+
+- **BMMC**: Bone Marrow Mononuclear Cells (mature immune cells)
+- **CD34+**: Hematopoietic stem and progenitor cells enriched for CD34 surface marker
 
 ---
 
-## Main Packages
+## Quality Control
 
-- Seurat
-- DoubletFinder
-- SingleR
-- celldex
-- Monocle3
-- CellChat
-- tidyverse
-- ggpubr
+Violin plots (VlnPlot) were generated for each sample to assess three key QC metrics:
+
+- **nFeature_RNA** — number of unique genes detected per cell
+- **nCount_RNA** — total UMI counts per cell
+- **percent.mt** — percentage of mitochondrial gene expression
+
+Key observations:
+- The BMMC samples (D1T1, D1T2) show a sharp, narrow distribution in both nFeature and nCount, consistent with a heterogeneous but well-captured mature cell population.
+- The CD34 samples show a broader distribution, reflecting the expected transcriptional diversity of progenitor cells.
+- Mitochondrial content (percent.mt) is essentially zero across all samples, indicating high cell viability and minimal apoptotic contamination.
+
+---
+
+## Batch Correction
+
+UMAP plots were generated before and after batch correction, colored by several metadata variables to identify sources of technical variation:
+
+| Variable     | Observation |
+|--------------|-------------|
+| `orig.ident` | BMMC and CD34 cells were initially separated; after correction they integrate while preserving biological identity |
+| `Donor`      | D1 (BMMC) dominates numerically; D2 and D3 (CD34) mix well post-correction |
+| `Sex`        | Predominantly female (F) donors; male (M) cells distributed across shared clusters after correction |
+| `Replicate`  | T1/T2 replicates mix well after correction, confirming technical reproducibility |
+
+Batch correction was successful in removing technical donor/replicate effects while preserving biologically meaningful cell type structure.
+
+---
+
+## Dimensionality Reduction
+
+### PCA
+
+A scree plot was used to select the number of principal components (PCs) for downstream analysis. The "elbow" occurs around **PC 6–7**, where explained variance begins to plateau. The first **10 PCs** were selected as they capture the majority of the biological signal.
+
+### UMAP
+
+UMAP was run on the top 10 PCs, revealing **15 distinct clusters** (0–14) with clear separation between major hematopoietic lineages. The 2D embedding shows:
+- A large central myeloid/progenitor compartment
+- Distinct lymphoid populations
+- Isolated erythroid and NK/T cell clusters
+
+---
+
+## Clustering
+
+Seurat graph-based clustering identified **15 clusters** (0–14) at the chosen resolution. Side-by-side UMAP plots colored by `orig.ident` and `seurat_clusters` confirm that:
+- CD34+ progenitor cells predominantly occupy the upper clusters (enriched in stem/progenitor identities)
+- BMMC cells span the full landscape, including mature myeloid, lymphoid, and erythroid compartments
+
+---
+
+## Cell Type Annotation
+
+### Automatic Annotation
+
+Automated annotation assigned the following cell type labels:
+
+`B_cell`, `BM`, `BM & Prog.`, `CMP`, `DC`, `Erythroblast`, `GMP`, `HSC_-G-CSF`, `MEP`, `Monocyte`, `Myelocyte`, `Neutrophils`, `NK_cell`, `Platelets`, `Pre-B_cell_CD34-`, `Pro-B_cell_CD34+`, `Pro-Myelocyte`, `T_cells`, `Tissue_stem_cells`, `NA`
+
+### Manual Annotation
+
+Manual annotation using canonical marker genes produced the following labels:
+
+`T-Cells`, `CD14` (Monocytes), `GMP`, `Plasma`, `Basophils`, `cDC`, `Pre-Cell`, `Erythrocytes`, `CLP`, `CD8`, `B-Cell`, `CD4`, `LMPP`, `NK`, `CD16`
+
+### Comparison
+
+Both approaches yielded broadly similar cluster distributions. The key difference is granularity: automatic annotation treated the T cell population as a single cluster, while manual annotation resolved it into three distinct subsets — **T-Cells**, **CD4**, and **CD8** — providing finer immunological resolution. This means the automatic approach annotates more cells per label, while manual annotation offers greater biological specificity.
+
+---
+
+## Differential Expression Analysis
+
+Marker gene expression was visualized using violin plots and UMAP feature plots for three canonical lineage markers:
+
+| Gene   | Expression Pattern |
+|--------|--------------------|
+| **CD19**  | Highly enriched in clusters 6, 10, and 12 — consistent with B cell identity |
+| **CD3D**  | Strongly expressed in clusters 0, 9, and 11 — confirming T cell populations |
+| **NKG7**  | Highest in clusters 11 and 13 — marking NK and cytotoxic T cells |
+
+### Pairwise Comparisons (Volcano Plots)
+
+**B-Cells vs T-Cells**
+- Large number of significantly differentially expressed genes in both directions
+- Genes upregulated in B cells include B cell receptor components; genes upregulated in T cells include T cell receptor and co-stimulatory molecules
+
+**CD4 T Cells vs CD14 Monocytes**
+- Strong transcriptional separation between the two lineages
+- Monocyte-enriched genes (upregulated in CD14) reflect innate immune and phagocytic functions; T cell genes reflect adaptive immune signaling
+
+---
+
+## Tools & Technologies
+
+- **R / Seurat** — QC, normalization, clustering, annotation
+- **UMAP** — non-linear dimensionality reduction
+- **PCA** — linear dimensionality reduction and PC selection
+- **Harmony / integration** — batch correction
+- **ggplot2** — visualization
+
+---
+
+## Authors
+
+Project Report — scRNA-seq of Human Bone Marrow
