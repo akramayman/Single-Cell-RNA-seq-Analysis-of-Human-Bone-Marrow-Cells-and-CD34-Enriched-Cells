@@ -2,6 +2,8 @@
 ![R Package](https://img.shields.io/badge/R%20Package-Seurat-blue)
 ![R Package](https://img.shields.io/badge/R%20Package-CellChat-green)
 ![R Package](https://img.shields.io/badge/R%20Package-Monocle3-red)
+![R Package](https://img.shields.io/badge/R%20Package-ggplot2-yellow)
+ 
 
 A single-cell RNA sequencing analysis pipeline applied to human bone marrow mononuclear cells (BMMC) and CD34+ progenitor cells, covering quality control, batch correction, dimensionality reduction, clustering, cell type annotation, and differential expression analysis.
 
