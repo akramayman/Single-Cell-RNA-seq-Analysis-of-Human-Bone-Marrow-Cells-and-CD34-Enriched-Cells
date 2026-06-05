@@ -1,5 +1,9 @@
 # Single-Cell-RNA-seq-Analysis-of-Human-Bone-Marrow-Cells-and-CD34-Enriched-Cells
 
+![R Package](https://img.shields.io/badge/R_Package-Seurat-blue)
+![R Package](https://img.shields.io/badge/R_Package-CellChat-green)
+![R Package](https://img.shields.io/badge/R_Package-Monocle3-red)
+
 Single-cell RNA sequencing (scRNA-seq) has become a powerful tool for studying cellular heterogeneity and identifying distinct cell populations within complex biological systems. This project presents a comprehensive scRNA-seq analysis of human bone marrow mononuclear cells (BMMCs) and CD34+ hematopoietic progenitor cells obtained from multiple donors and biological replicates.
 
 The primary objective of this study is to characterize the cellular composition of hematopoietic populations by applying a standard single-cell analysis workflow, including quality control, normalization, dimensionality reduction, clustering, cell-type annotation, and differential gene expression analysis. To ensure data quality and reliability, doublets were identified and removed using DoubletFinder, while batch effects arising from donor and replicate differences were corrected through Seurat's integration framework.
@@ -41,28 +45,30 @@ https://icbb-share.s3.eu-central-1.amazonaws.com/single-cell-bioinformatics/scbi
 
 ### Clone Repository
 
-git clone https://github.com/username/repository.git
-
+```bash
+git clone https://github.com/akramayman/Single-Cell-RNA-seq-Analysis-of-Human-Bone-Marrow-Cells-and-CD34-Enriched-Cells.git
+cd Single-Cell-RNA-seq-Analysis-of-Human-Bone-Marrow-Cells-and-CD34-Enriched-Cells
+```
 ### Create Environment
 
+```bash
 conda env create -f environment.yaml
 conda activate scrnaseq
+```
 
 ---
 
 ## Analysis Workflow
 
-1. Data Loading
-2. Quality Control
-3. Normalization
-4. Feature Selection
-5. PCA
-6. Doublet Detection (DoubletFinder)
-7. Data Integration & Batch Correction
-8. Clustering
-9. Automatic Cell Annotation (SingleR)
-10. Manual Cell Annotation
-11. Differential Expression Analysis
+
+- Quality control (QC)
+- Normalization and preprocessing
+- Doublet detection using DoubletFinder
+- Batch correction and data integration
+- Dimensionality reduction (PCA & UMAP)
+- Clustering
+- Automated and manual cell-type annotation
+- Differential gene expression analysis
 
 ---
 
