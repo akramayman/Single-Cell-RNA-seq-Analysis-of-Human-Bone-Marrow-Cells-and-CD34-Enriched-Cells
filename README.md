@@ -1,4 +1,4 @@
-# scRNA-seq Analysis of Human Bone Marrow
+# scRNA-seq Analysis of Human Bone Marrow and CD34+ Enriched Cells
 ![R Package](https://img.shields.io/badge/R%20Package-Seurat-blue)
 ![R Package](https://img.shields.io/badge/R%20Package-CellChat-green)
 ![R Package](https://img.shields.io/badge/R%20Package-Monocle3-red)
