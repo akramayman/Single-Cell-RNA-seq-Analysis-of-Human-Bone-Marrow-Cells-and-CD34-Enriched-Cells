@@ -8,6 +8,7 @@
 This study analyzes scRNA-seq data from human bone marrow mononuclear cells (BMMC) and CD34+ hematopoietic progenitor cells collected from multiple donors. The goal is to reconstruct the cellular landscape of the human bone marrow and identify major immune and stem cell populations through transcriptomic profiling.
 
 The analysis follows a complete standard single-cell workflow, implemented primarily in R using Seurat, including quality control, batch correction, dimensionality reduction, clustering, and cell type annotation.
+
 ---
 
 ## Table of Contents
