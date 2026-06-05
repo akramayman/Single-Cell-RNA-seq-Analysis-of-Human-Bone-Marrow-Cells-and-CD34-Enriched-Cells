@@ -1,4 +1,7 @@
 # scRNA-seq Analysis of Human Bone Marrow
+![R Package](https://img.shields.io/badge/R%20Package-Seurat-blue)
+![R Package](https://img.shields.io/badge/R%20Package-CellChat-green)
+![R Package](https://img.shields.io/badge/R%20Package-Monocle3-red)
 
 A single-cell RNA sequencing analysis pipeline applied to human bone marrow mononuclear cells (BMMC) and CD34+ progenitor cells, covering quality control, batch correction, dimensionality reduction, clustering, cell type annotation, and differential expression analysis.
 
@@ -30,6 +33,12 @@ The dataset consists of four samples from two cell populations across multiple d
 - **BMMC**: Bone Marrow Mononuclear Cells (mature immune cells)
 - **CD34+**: Hematopoietic stem and progenitor cells enriched for CD34 surface marker
 
+## 📦 Dataset Download
+
+The dataset used in this project can be downloaded here:
+
+- [Download scRNA-seq bone marrow dataset (ZIP)](https://icbb-share.s3.eu-central-1.amazonaws.com/single-cell-bioinformatics/scbi_ds1.zip)
+  
 ---
 
 ## Quality Control
@@ -135,8 +144,4 @@ Marker gene expression was visualized using violin plots and UMAP feature plots 
 - **Harmony / integration** — batch correction
 - **ggplot2** — visualization
 
----
 
-## Authors
-
-Project Report — scRNA-seq of Human Bone Marrow
