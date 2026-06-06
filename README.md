@@ -146,4 +146,9 @@ Marker gene expression was visualized using violin plots and UMAP feature plots 
 - **Harmony / integration** — batch correction
 - **ggplot2** — visualization
 
+--- 
 
+## Citation 
+
+If you use this repository, please cite:
+Akram Abushmais.
